@@ -48,6 +48,7 @@ export default function Login() {
       window.location.reload(); // This reloads & triggers AuthContext's fetchCurrentUser()
     } catch (err) {
       console.error("Login failed:", err.response?.data || err.message);
+      setLoadingAction(false);
       setMessage(err.response?.data?.message || "Invalid credentials");
     }
   };
@@ -72,6 +73,7 @@ export default function Login() {
       setIsLogin(true);
     } catch (err) {
       console.error("Register failed:", err.response?.data || err.message);
+      setLoadingAction(false);
       setMessage(
         err.response?.data?.message || "Something went wrong during signup"
       );

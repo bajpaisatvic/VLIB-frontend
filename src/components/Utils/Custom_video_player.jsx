@@ -3,131 +3,133 @@ import {
   FaPlay,
   FaPause,
   FaVolumeUp,
-  FaVolumeMute,
   FaExpand,
+  FaCompress,
+  FaForward,
+  FaBackward,
 } from "react-icons/fa";
 
 export default function CustomVideoPlayer({ src }) {
   const videoRef = useRef(null);
-  const containerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showControls, setShowControls] = useState(true);
-  const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(1);
-  const [isMuted, setIsMuted] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Play/Pause toggle
+  useEffect(() => {
+    const video = videoRef.current;
+    const updateTime = () => setCurrentTime(video.currentTime);
+    video.addEventListener("timeupdate", updateTime);
+    video.addEventListener("loadedmetadata", () => setDuration(video.duration));
+    return () => {
+      video.removeEventListener("timeupdate", updateTime);
+    };
+  }, []);
+
   const togglePlay = () => {
     const video = videoRef.current;
     if (video.paused) {
       video.play();
+      setIsPlaying(true);
     } else {
       video.pause();
+      setIsPlaying(false);
     }
   };
 
-  // Fullscreen toggle
+  const handleVolumeChange = (e) => {
+    const vol = parseFloat(e.target.value);
+    videoRef.current.volume = vol;
+    setVolume(vol);
+  };
+
+  const handleProgressChange = (e) => {
+    const time = (e.target.value / 100) * duration;
+    videoRef.current.currentTime = time;
+    setCurrentTime(time);
+  };
+
   const toggleFullscreen = () => {
-    const container = containerRef.current;
-    if (container.requestFullscreen) {
+    const container = videoRef.current.parentElement;
+    if (!document.fullscreenElement) {
       container.requestFullscreen();
-    } else if (container.webkitRequestFullscreen) {
-      container.webkitRequestFullscreen();
-    } else if (container.msRequestFullscreen) {
-      container.msRequestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
     }
   };
 
-  // Volume toggle
-  const toggleMute = () => {
-    const video = videoRef.current;
-    video.muted = !video.muted;
-    setIsMuted(video.muted);
+  const forward10 = () => {
+    videoRef.current.currentTime += 10;
   };
 
-  // Mouse move: show controls temporarily
-  const handleMouseMove = () => {
-    setShowControls(true);
-    clearTimeout(window.hideControlsTimeout);
-    window.hideControlsTimeout = setTimeout(() => {
-      setShowControls(false);
-    }, 3000);
+  const backward10 = () => {
+    videoRef.current.currentTime -= 10;
   };
 
-  // Track progress
-  const handleTimeUpdate = () => {
-    const video = videoRef.current;
-    const percent = (video.currentTime / video.duration) * 100;
-    setProgress(percent);
+  const formatTime = (time) => {
+    const mins = Math.floor(time / 60);
+    const secs = Math.floor(time % 60)
+      .toString()
+      .padStart(2, "0");
+    return `${mins}:${secs}`;
   };
-
-  // Seek
-  const handleSeek = (e) => {
-    const video = videoRef.current;
-    const rect = e.target.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const percent = clickX / rect.width;
-    video.currentTime = percent * video.duration;
-  };
-
-  useEffect(() => {
-    const video = videoRef.current;
-
-    const handlePlay = () => setIsPlaying(true);
-    const handlePause = () => setIsPlaying(false);
-
-    video.addEventListener("play", handlePlay);
-    video.addEventListener("pause", handlePause);
-    video.addEventListener("timeupdate", handleTimeUpdate);
-
-    return () => {
-      video.removeEventListener("play", handlePlay);
-      video.removeEventListener("pause", handlePause);
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-    };
-  }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full aspect-video bg-black overflow-hidden group"
-      onMouseMove={handleMouseMove}
-    >
+    <div className="relative w-full bg-black aspect-video">
       <video
         ref={videoRef}
         src={src}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-contain"
         preload="metadata"
       />
       {/* Controls */}
-      {showControls && (
-        <div className="absolute bottom-0 w-full text-white bg-gradient-to-t from-black/70 to-transparent px-4 py-3">
-          {/* Progress Bar */}
-          <div
-            className="h-2 bg-zinc-700 rounded cursor-pointer mb-2"
-            onClick={handleSeek}
-          >
-            <div
-              className="h-full bg-red-500 rounded"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-
-          <div className="flex justify-between items-center text-sm">
-            <div className="flex items-center gap-4">
-              <button onClick={togglePlay}>
-                {isPlaying ? <FaPause /> : <FaPlay />}
-              </button>
-              <button onClick={toggleMute}>
-                {isMuted || volume === 0 ? <FaVolumeMute /> : <FaVolumeUp />}
-              </button>
-            </div>
-            <button onClick={toggleFullscreen}>
-              <FaExpand />
+      <div className="absolute bottom-0 left-0 right-0 bg-black/80 text-white px-4 py-2 flex flex-col gap-1">
+        {/* Progress Bar */}
+        <input
+          type="range"
+          min={0}
+          max={100}
+          value={duration ? (currentTime / duration) * 100 : 0}
+          onChange={handleProgressChange}
+          className="w-full accent-red-600 cursor-pointer"
+        />
+        {/* Control Buttons */}
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <button onClick={backward10} title="Backward 10s">
+              <FaBackward />
             </button>
+            <button onClick={togglePlay} title="Play/Pause">
+              {isPlaying ? <FaPause /> : <FaPlay />}
+            </button>
+            <button onClick={forward10} title="Forward 10s">
+              <FaForward />
+            </button>
+
+            <div className="flex items-center gap-2">
+              <FaVolumeUp />
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={volume}
+                onChange={handleVolumeChange}
+                className="w-24 accent-red-600"
+              />
+            </div>
+            <span className="text-xs text-zinc-300">
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </span>
           </div>
+          <button onClick={toggleFullscreen} title="Fullscreen">
+            {isFullscreen ? <FaCompress /> : <FaExpand />}
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 }

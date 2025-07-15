@@ -13,6 +13,7 @@ import {
   FaPlus,
 } from "react-icons/fa";
 import { useAuth } from "../contexts/authContext";
+
 export default function VideoPlayer() {
   const calledRef = useRef(false);
   const { videoId } = useParams();
