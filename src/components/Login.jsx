@@ -14,7 +14,7 @@ export default function Login() {
 
   const { loading } = useAuth(); // fetches checkAuth on mount already
   const navigate = useNavigate();
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const toggleCard = () => {
     setIsLogin(!isLogin);
     setMessage("");

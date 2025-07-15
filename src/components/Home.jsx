@@ -16,7 +16,7 @@ export default function Home() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const limit = 12;
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const fetchVideos = async () => {
     try {
       setLoading(true);

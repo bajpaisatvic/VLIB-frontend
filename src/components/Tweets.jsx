@@ -12,7 +12,7 @@ export default function Tweets() {
   const [editingText, setEditingText] = useState("");
   const [likedTweets, setLikedTweets] = useState(new Set());
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString("en-GB", {

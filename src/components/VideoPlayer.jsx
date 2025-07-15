@@ -32,7 +32,7 @@ export default function VideoPlayer() {
   const [playlistsWithVideo, setPlaylistsWithVideo] = useState(new Set());
   const [newPlaylistName, setNewPlaylistName] = useState("");
   const [newPlaylistDescription, setNewPlaylistDescription] = useState("");
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const { user } = useAuth();
 
   const fetchPlaylists = async () => {

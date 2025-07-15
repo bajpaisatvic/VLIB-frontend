@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function WatchHistory() {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const fetchHistory = async () => {
     try {
       const res = await axios.get(`${backendURL}/users/history`, {

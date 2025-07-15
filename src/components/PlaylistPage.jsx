@@ -13,7 +13,7 @@ export default function PlaylistPage() {
     const secs = totalSeconds % 60;
     return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const fetchPlaylist = async () => {
     try {
       const { data } = await axios.get(`${backendURL}/playlist/${playlistId}`, {

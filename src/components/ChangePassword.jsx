@@ -11,7 +11,7 @@ export default function ChangePassword() {
   });
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };

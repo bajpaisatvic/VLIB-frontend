@@ -10,7 +10,7 @@ export default function Post() {
   const [progress, setProgress] = useState(0);
   const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!videoFile || !thumbnail || !title || !description) return;

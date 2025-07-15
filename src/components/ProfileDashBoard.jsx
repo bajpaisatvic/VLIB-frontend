@@ -23,7 +23,7 @@ export default function ProfileDashboard() {
   const [message, setMessage] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [saving, setSaving] = useState(false);
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const navigate = useNavigate();
 
   const handleLogout = async () => {

@@ -13,7 +13,7 @@ export default function Playlists() {
   const [activeMenuId, setActiveMenuId] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(null);
   const [editData, setEditData] = useState(null);
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const confirmDeletePlaylist = async () => {
     try {
       await axios.delete(`${backendURL}/playlist/${confirmDelete._id}`, {

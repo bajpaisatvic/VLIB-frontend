@@ -8,7 +8,7 @@ export default function Subscriptions() {
   const [channels, setChannels] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
-  const backendURL = import.meta.env.VITE_DEV_BACKEND_URL;
+  const backendURL = import.meta.env.VITE_PRODUCTION_URL;
   const fetchSubscribed = async () => {
     try {
       const res = await axios.get(`${backendURL}/subscription/u/${user._id}`, {
