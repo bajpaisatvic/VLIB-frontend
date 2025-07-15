@@ -34,7 +34,7 @@ export default function Login() {
       const res = await axios.post(
         `${backendURL}/users/login`,
         {
-          username: formData.username,
+          username: formData.username.toLowerCase(),
           password: formData.password,
         },
         {
