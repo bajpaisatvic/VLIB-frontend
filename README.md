@@ -1,12 +1,88 @@
-# React + Vite
+# 🎮 Video Streaming Platform - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the frontend of our full-stack **Video Streaming Platform**, built using React and Tailwind CSS. This platform lets users upload, watch, like, comment on, and manage videos—along with tweet-like posts and playlists.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Site
 
-## Expanding the ESLint configuration
+👉 [Visit Deployed Website](https://vlib-frontend.vercel.app/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🔗 Backend Repository
+
+Looking for the backend code?
+
+👉 [Backend GitHub Repo](https://github.com/bajpaisatvic/Video-Library-backend)
+
+---
+
+## ✨ Features
+
+* 🎥 Upload and watch videos
+* 💬 Comment, edit, and delete
+* ❤️ Like videos and comments
+* 📁 Create and manage playlists
+* 🧑‍🤝‍🧑 Subscribe to channels
+* 🐦 Post tweet-like messages
+* 🔐 Authenticated user system
+* 📊 Channel dashboard and analytics
+* 📱 Responsive UI with custom video player
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**
+
+* React
+* Tailwind CSS
+* Axios
+* React Router DOM
+
+**Backend** (linked above)
+
+* Node.js
+* Express.js
+* MongoDB
+* Cloudinary
+* JWT (Auth)
+
+---
+
+## 🗂️ Folder Structure
+
+```
+src/
+├── components/      # Reusable components
+├── contexts/        # Auth context
+├── pages/           # Route components
+├── utils/           # Utility functions
+└── App.jsx          # Main app with routing
+```
+
+---
+
+## 📦 Getting Started
+
+1. Clone the repo:
+
+```bash
+git clone [https://github.com/yourusername/video-streaming-frontend.git](https://github.com/bajpaisatvic/VLIB-frontend)
+cd VLIB-frontend
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+```
+
+> ⚠️ Don't forget to clone and run the backend locally too.
