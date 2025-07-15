@@ -309,9 +309,15 @@ export default function VideoPlayer() {
                     className="w-10 h-10 rounded-full object-cover border border-red-500"
                   />
                   <div>
-                    <p className="font-semibold text-white">
+                    <Link
+                      to={`/channel/${cmt.owner.username}`}
+                      className="text-white font-semibold hover:underline"
+                    >
                       @{cmt.owner.username}
-                    </p>
+                    </Link>
+                    {/* <p className="font-semibold text-white">
+                      @{cmt.owner.username}
+                    </p> */}
                     {editingCommentId === cmt._id ? (
                       <div className="mt-2 flex gap-2">
                         <input
