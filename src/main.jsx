@@ -9,7 +9,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Layout from "./layout.jsx";
+import Layout from "./Layout.jsx";
 import Home from "./components/Home.jsx";
 import Login from "./components/Login.jsx";
 import { AuthProvider, useAuth } from "./contexts/authContext.jsx";
